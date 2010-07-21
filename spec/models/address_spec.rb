@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Address do
   before(:each) do
     @valid_attributes = {
-          :street => "123 High Street",
-          :city   => "Palo Alto",
-          :zip    => "99876"
+            :street => "123 High Street",
+            :city   => "Palo Alto",
+            :zip    => "99876"
     }
   end
 
@@ -14,10 +14,10 @@ describe Address do
   end
 
   [:street, :city, :zip].each do |att|
-    it "must have #{att}" do
+    it "should have error message if #{att} is nil" do
       a = Address.create(@valid_attributes[att] = nil)
-      a.errors.on(att).should =~ /can't be blank/, :message = "#{att} should not be blank")
+      a.errors.on(att).should =~ /can't be blank/
     end
-  end
 
+  end
 end

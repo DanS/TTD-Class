@@ -7,6 +7,11 @@ describe Person do
           :first_name => "Joe",
           :last_name => "Blow"
     }
+
+    @p = Person.create(@valid_attributes)
+    @valid_att_addresses = {
+            :street => 'My Street' , :city   => 'Palo Alto' , :zip    => '94301' ,:person_id => @p
+            }
   end
 
   it "should save correctly given valid attributes" do
@@ -36,10 +41,10 @@ describe Person do
   end
 
   it "can have many Addresses" do
-    p = Person.create(@valid_attributes)
-    add1 = Address.create(:person_id => p)
-    add2 = Address.create(:person_id => p)
-    p.addresses.count.should == 2
+    add1 = Address.create(@valid_att_addresses)
+    add2 = Address.create(@valid_att_addresses)
+    puts @p.inspect
+    @p.addresses.count.should == 2
   end
-  
+
 end
