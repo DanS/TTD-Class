@@ -8,10 +8,10 @@ describe Person do
           :last_name => "Blow"
     }
 
-    @p = Person.create(@valid_attributes)
+    @person = Person.create(@valid_attributes)
     @valid_att_addresses = {
-            :street => 'My Street' , :city   => 'Palo Alto' , :zip    => '94301' ,:person_id => @p
-            }
+          :street => 'My Street', :city => 'Palo Alto', :zip => '94301', :person_id => @person
+    }
   end
 
   it "should save correctly given valid attributes" do
@@ -23,14 +23,8 @@ describe Person do
   [:first_name, :last_name].each do |attrib|
     it "should not be valid without #{attrib}" do
       @valid_attributes[attrib] = nil
-      p = Person.create(@valid_attributes)
-      p.should_not be_valid
+      Person.create(@valid_attributes).should_not be_valid
     end
-  end
-
-  it "should a full_name method" do
-    p = Person.create(@valid_attributes)
-    p.full_name.should == 'Joe Blow'
   end
 
   it "should accept a middle name" do
@@ -40,11 +34,24 @@ describe Person do
     }.should change(Person, :count).by(1)
   end
 
+  describe "full name method" do
+
+    it "should return first_name single space last_name if no middle_name" do
+      p = Person.create(@valid_attributes)
+      p.full_name.should == 'Joe Blow'
+    end
+
+    it "should include middle name if given" do
+      p = Person.new(@valid_attributes.merge({:middle_name => 'Jessus'}))
+      p.full_name.should == "Joe Jessus Blow"
+    end
+
+  end
+
   it "can have many Addresses" do
-    add1 = Address.create(@valid_att_addresses)
-    add2 = Address.create(@valid_att_addresses)
-    puts @p.inspect
-    @p.addresses.count.should == 2
+    Address.create(@valid_att_addresses)
+    Address.create(@valid_att_addresses)
+    @person.addresses.count.should == 2
   end
 
 end

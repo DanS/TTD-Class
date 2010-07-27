@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20100720205755) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "country"
+    t.string   "country",    :default => "USA"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"

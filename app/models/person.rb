@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
   has_many :addresses
 
   def full_name
-    first_name + ' ' + last_name
+    [first_name, middle_name, last_name].compact.join(' ')
   end
+
 end
