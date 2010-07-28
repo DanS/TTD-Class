@@ -9,9 +9,7 @@ describe Person do
     }
 
     @person = Person.create(@valid_attributes)
-    @valid_att_addresses = {
-          :street => 'My Street', :city => 'Palo Alto', :zip => '94301', :person_id => @person
-    }
+    @valid_att_addresses = Factory.attributes_for(:address)
   end
 
   it "should save correctly given valid attributes" do
@@ -49,9 +47,9 @@ describe Person do
   end
 
   it "can have many Addresses" do
-    Address.create(@valid_att_addresses)
-    Address.create(@valid_att_addresses)
-    @person.addresses.count.should == 2
+    person = Factory(:person)
+    2.times {Factory(:address, :person => person)}
+    person.addresses.count.should == 2
   end
 
 end

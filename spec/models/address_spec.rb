@@ -5,6 +5,7 @@ describe Address do
     @valid_attributes = {
             :street => "123 High Street",
             :city   => "Palo Alto",
+            :state  => "CA",
             :zip    => "99876"
     }
   end
@@ -13,7 +14,7 @@ describe Address do
     Address.create!(@valid_attributes).should be_valid
   end
 
-  [:street, :city, :zip].each do |att|
+  [:street, :city, :state, :zip].each do |att|
     it "should have error message if #{att} is nil" do
       a = Address.create(@valid_attributes[att] = nil)
       a.errors.on(att).should =~ /can't be blank/
@@ -28,4 +29,5 @@ describe Address do
     a = Address.new(@valid_attributes.merge({:country=>"Spain"}))
     a.country.should == 'Spain'
   end
+
 end
