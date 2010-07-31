@@ -52,4 +52,18 @@ describe Person do
     person.addresses.count.should == 2
   end
 
+  it "should list all the items they bought" do
+    ['Curly', 'Shemp', 'Moe'].each do |person_name|
+      p = Factory(:person, :first_name => person_name)
+      o = Order.create :customer => p
+      ['mop', 'top', 'cop'].each do |item_name|
+         item = Factory(:item, :name => "#{person_name} #{item_name}")
+         LineItem.create :item => item, :order => o
+      end
+    end
+    p = Person.find_by_first_name 'Moe'
+    p.all_purchases.collect {|i| i.name}.
+          should == ['Moe mop', 'Moe top', 'Moe cop']
+  end
+
 end
