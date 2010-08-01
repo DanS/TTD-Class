@@ -22,8 +22,8 @@ describe Item do
   end
 
   it "returns all items ordered by popularity" do
-    people = (1..10).to_a.collect {Factory(:person)}
-    items = (1..10).to_a.collect {|i| Factory(:item, :name => "item#{i}")}
+    people = (1..10).to_a.collect { Factory(:person) }
+    items = (1..10).to_a.collect { |i| Factory(:item, :name => "item#{i}") }
     [6, 10, 1, 7, 3, 8, 5, 9, 4, 2].each do |count|
       count.times do
         order = Factory(:order, :customer => people[count - 1])
@@ -31,7 +31,7 @@ describe Item do
       end
     end
     result = Item.by_popularity
-    result.collect {|i| i['name']}.should == ["item10", "item9", "item8", "item7", "item6", "item5", "item4", "item3", "item2", "item1"]
+    result.collect { |i| i['name'] }.should == ["item10", "item9", "item8", "item7", "item6", "item5", "item4", "item3", "item2", "item1"]
     result.first.should be_kind_of(Item)
   end
 
