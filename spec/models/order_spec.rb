@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Order do
 
   it "should create valid objects from the factory" do
-    Factory(:order).should be_valid
-#    Order.new(Factory.attributes_for(:order)).should be_valid
+    order = Factory(:line_item).order
+    order.should be_valid
   end
 
   [:customer, :item].each do |attr|
@@ -19,7 +19,7 @@ describe Order do
   context "associations" do
 
     before do
-      @order = Factory(:order)
+      @order = Factory(:line_item).order
     end
 
     it "belongs_to a person (customer)" do
@@ -35,6 +35,6 @@ describe Order do
       @order.line_items.should be_kind_of(Array)
     end
 
-  end
+    end
 
 end
