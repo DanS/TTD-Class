@@ -30,4 +30,11 @@ describe Address do
     a.country.should == 'Spain'
   end
 
+  describe " only allows legitimate state abbreviations for state" do
+
+    it "should not accept invalid state abbreviations" do
+      Factory.build(:address, :state => 'IO').should_not be_valid
+    end
+  end
+
 end
