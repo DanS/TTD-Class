@@ -89,7 +89,14 @@ describe Person do
       Person.loyal_customers.length.should == 0
     end
 
-    it "should find a person who bought one item 3 months ago and 1 item one day ago" do
+    it "should find a person who bought two of the same item, on the same order, today" do
+      item = Factory(:item)
+      person = Factory(:person)
+      order = Factory(:order, :customer_id => person.id)
+      2.times {Factory(:line_item, :item_id => item.id, :order_id => order.id)}
+    end
+
+    it "should find a person who bought one item 3 months ago and a different item one day ago" do
       order2 = Factory(:order, :customer_id => @person1.id)
       Factory(:line_item, :created_at => Date.today - 3.months, :order_id=>@order1.id)
       Factory(:line_item, :created_at => Date.today - 1.day, :order_id=>order2.id)
