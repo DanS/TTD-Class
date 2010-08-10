@@ -46,6 +46,25 @@ describe Person do
 
   end
 
+  it "adds a person along with an address for that person" do
+    params = { :person => {
+          :first_name =>"Kai",
+          :last_name => "Middleton",
+          :addresses_attributes => [
+            {:street => '123 Easy St',
+             :city => "Albany",
+             :state => "CA",
+             :zip => '12345'},
+            {:street => '123 Hard st.',
+             :city => "San Francisco",
+             :state =>"CA",
+             :zip => '98765'}]
+          }
+    }
+    p = Person.create(params[:person])
+    p.addresses.count.should == 2
+  end
+
   it "can have many Addresses" do
     person = Factory(:person)
     2.times { Factory(:address, :person => person) }

@@ -4,6 +4,8 @@ class Person < ActiveRecord::Base
   has_many :addresses
   has_many :orders, :foreign_key => :customer_id
 
+  accepts_nested_attributes_for :addresses
+
   def full_name
     [first_name, middle_name, last_name].compact.join(' ')
   end
