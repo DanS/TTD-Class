@@ -20,6 +20,14 @@ describe PeopleController do
       get :show, :id => "37"
       assigns[:person].should equal(mock_person)
     end
+
+    it "assigns a list of items as @items" do
+      Person.stub(:find).with("37").and_return(mock_person)
+      items = (1..3).collect {Factory(:item)}
+      Item.stub(:all).and_return items
+      get :show, :id => "37"
+      assigns[:items].should == items
+    end
   end
 
   describe "GET new" do

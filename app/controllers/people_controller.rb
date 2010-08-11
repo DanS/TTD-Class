@@ -14,7 +14,7 @@ class PeopleController < ApplicationController
   # GET /people/1.xml
   def show
     @person = Person.find(params[:id])
-
+    @items = Item.all
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @person }
