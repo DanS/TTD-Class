@@ -1,47 +1,5 @@
 <h1>New person</h1>
 
-<% form_for(@person) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :first_name %><br/>
-    <%= f.text_field :first_name %>
-  </p>
-  <p>
-    <%= f.label :middle_name %><br/>
-    <%= f.text_field :middle_name %>
-  </p>
-  <p>
-    <%= f.label :last_name %><br/>
-    <%= f.text_field :last_name %>
-  </p>
-  <% n = 0 %>
-  <% f.fields_for :addresses do |builder| %>
-    <hr/>
-    <p>
-      <% n += 1 %>
-      <%= "Address #{n}" %>
-    </p>
-    <p>
-      <%= builder.label :street %><br/>
-      <%= builder.text_field :street %>
-    </p>
-    <p>
-      <%= builder.label :city %><br/>
-      <%= builder.text_field :city %>
-    </p>
-    <p>
-      <%= builder.label :state %><br/>
-      <%= builder.text_field :state %>
-    </p>
-    <p>
-      <%= builder.label :zip %><br/>
-      <%= builder.text_field :zip %>
-    </p>
-  <% end %>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<%= render :partial => 'form' %>
 
 <%= link_to 'Back', people_path %>

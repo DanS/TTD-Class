@@ -1,3 +1,8 @@
+.column_container label {
+  width: 100px;
+  float: left;
+}
+
 body { background-color: #fff; color: #333; }
 
 body, p, ol, ul, td {
