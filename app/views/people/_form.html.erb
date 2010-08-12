@@ -16,36 +16,44 @@
       <%= f.label :last_name %>
       <%= f.text_field :last_name %>
     </p>
+
     <% n = 0 %>
     <% f.fields_for :addresses do |builder| %>
-      <hr/>
-      <p>
-        <% n += 1 %>
-        <%= "Address #{n}" %>
-      </p>
+      <div class="fields">
+        <hr/>
+        <p>
+          <% n += 1 %>
+          <h4> <%= "Address #{n}" %> </h4>
+        </p>
 
-      <p>
-        <%= builder.label :street %>
-        <%= builder.text_field :street %>
-      </p>
+        <p>
+          <%= builder.label :street %>
+          <%= builder.text_field :street %>
+        </p>
 
-      <p>
-        <%= builder.label :city %>
-        <%= builder.text_field :city %>
-      </p>
+        <p>
+          <%= builder.label :city %>
+          <%= builder.text_field :city %>
+        </p>
 
-      <p>
-        <%= builder.label :state %>
-        <%= builder.text_field :state %>
-      </p>
+        <p>
+          <%= builder.label :state %>
+          <%= builder.text_field :state %>
+        </p>
 
-      <p>
-        <%= builder.label :zip %>
-        <%= builder.text_field :zip %>
-      </p>
+        <p>
+          <%= builder.label :zip %>
+          <%= builder.text_field :zip %>
+        </p>
+
+        <p>
+          <%= builder.hidden_field :_destroy %>
+          <%= link_to_function "Remove This Address", "remove_fields(this)" %>
+        </p>
+      </div>
     <% end %>
     <p>
-      <%= f.submit 'Create' %>
+      <%= f.submit %>
     </p>
   </div>
 <% end %>
