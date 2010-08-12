@@ -19,39 +19,11 @@
 
     <% n = 0 %>
     <% f.fields_for :addresses do |builder| %>
-      <div class="fields">
-        <hr/>
-        <p>
-          <% n += 1 %>
-          <h4> <%= "Address #{n}" %> </h4>
-        </p>
-
-        <p>
-          <%= builder.label :street %>
-          <%= builder.text_field :street %>
-        </p>
-
-        <p>
-          <%= builder.label :city %>
-          <%= builder.text_field :city %>
-        </p>
-
-        <p>
-          <%= builder.label :state %>
-          <%= builder.text_field :state %>
-        </p>
-
-        <p>
-          <%= builder.label :zip %>
-          <%= builder.text_field :zip %>
-        </p>
-
-        <p>
-          <%= builder.hidden_field :_destroy %>
-          <%= link_to_function "Remove This Address", "remove_fields(this)" %>
-        </p>
-      </div>
+      <%= render 'address_fields', :f => builder %>
     <% end %>
+    <p>
+      <%= link_to_add_fields "Add Address", f, :addresses %>
+    </p>
     <p>
       <%= f.submit %>
     </p>

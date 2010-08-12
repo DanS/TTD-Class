@@ -1,0 +1,28 @@
+<div class="fields">
+  <hr/>
+
+  <p>
+    <%= f.label :street %>
+    <%= f.text_field :street %>
+  </p>
+
+  <p>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </p>
+
+  <p>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </p>
+
+  <p>
+    <%= f.label :zip %>
+    <%= f.text_field :zip %>
+  </p>
+
+  <p>
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_function "Remove This Address", "remove_fields(this)" %>
+  </p>
+</div>
