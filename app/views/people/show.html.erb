@@ -13,12 +13,9 @@
   <%= h @person.last_name %>
 </p>
 
-<h3>Items</h3>
-<ul>
-  <% @items.each do |item| %>
-    <li> <%= item.name %></li>
-  <% end %>
-</ul>
+<%= render :partial => 'address', :collection => @person.addresses%>
+<hr>
+<%= render :partial => 'items', :collection => @items %> 
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

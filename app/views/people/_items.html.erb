@@ -1,0 +1,8 @@
+<%#= item_counter %>
+<%= items.name %>
+<%= items.description %>
+<%= items.price %>
+<label> Quantity </label>
+<%= select_tag("quantity", options_for_select((0..99).collect { |x| [x, x] })) %>
+<%=  %>
+<br />

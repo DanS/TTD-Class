@@ -25,7 +25,7 @@ class PeopleController < ApplicationController
   # GET /people/new.xml
   def new
     @person = Person.new
-    2.times {@person.addresses.build}
+    @person.addresses.build
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @person }
