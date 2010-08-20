@@ -24,16 +24,16 @@ class Person < ActiveRecord::Base
 
   def with_addresses
     #return person as a symbol keyed hash including a array of addresses which are also symbol keyed hashes
-    addrs = addresses.collect do |a|
+    _addresses = addresses.collect do |a|
       #remove unwanted keys
-      h1 = a.attributes.delete_if { |k, v| k =~ /^id$|_id$|_at$/ }
+      hash_with_wanted_keys = a.attributes.delete_if { |k, v| k =~ /^id$|_id$|_at$/ }
 
       #convert keys to symbols
-      h2 = {}
-      h1.each_pair {|k,v| h2[k.to_sym] = v}
-      h2
+      hash_with_keys_as_symbols = {}
+      hash_with_wanted_keys.each_pair {|k,v| hash_with_keys_as_symbols[k.to_sym] = v}
+      hash_with_keys_as_symbols
     end
-    {:first_name => first_name, :middle_name=>middle_name, :last_name=>last_name, :addresses=>addrs}
+    {:first_name => first_name, :middle_name=>middle_name, :last_name=>last_name, :addresses=>_addresses}
   end
 
 end
