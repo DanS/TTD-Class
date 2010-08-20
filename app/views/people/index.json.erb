@@ -1,0 +1,7 @@
+ <%=
+  output = {}
+  output[:request] = request.url
+  output[:people]  = @people.collect {|p| p.with_addresses}
+  output[:status]  = {:code => 200, :message => 'ok'}
+  output.to_json
+ %>

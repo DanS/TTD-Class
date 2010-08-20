@@ -47,19 +47,19 @@ describe Person do
   end
 
   it "adds a person along with an address for that person" do
-    params = { :person => {
+    params = {:person => {
           :first_name =>"Kai",
           :last_name => "Middleton",
           :addresses_attributes => [
-            {:street => '123 Easy St',
-             :city => "Albany",
-             :state => "CA",
-             :zip => '12345'},
-            {:street => '123 Hard st.',
-             :city => "San Francisco",
-             :state =>"CA",
-             :zip => '98765'}]
-          }
+                {:street => '123 Easy St',
+                 :city => "Albany",
+                 :state => "CA",
+                 :zip => '12345'},
+                {:street => '123 Hard st.',
+                 :city => "San Francisco",
+                 :state =>"CA",
+                 :zip => '98765'}]
+    }
     }
     p = Person.create(params[:person])
     p.addresses.count.should == 2
@@ -112,7 +112,7 @@ describe Person do
       item = Factory(:item)
       person = Factory(:person)
       order = Factory(:order, :customer_id => person.id)
-      2.times {Factory(:line_item, :item_id => item.id, :order_id => order.id)}
+      2.times { Factory(:line_item, :item_id => item.id, :order_id => order.id) }
     end
 
     it "should find a person who bought one item 3 months ago and a different item one day ago" do
@@ -120,6 +120,30 @@ describe Person do
       Factory(:line_item, :created_at => Date.today - 3.months, :order_id=>@order1.id)
       Factory(:line_item, :created_at => Date.today - 1.day, :order_id=>order2.id)
       Person.loyal_customers.length.should == 1
+    end
+  end
+
+  describe "with_addresses method" do
+    before do
+      @person = Factory(:person, :first_name=>'Franklin', :middle_name=>'Dwight', :last_name=>'Rosevelt')
+      Factory(:address, :person => @person, :state=>'CA')
+    end
+
+    it "should return all person attributes as well as all address attributes" do
+      @person.with_addresses[:first_name].should == 'Franklin'
+      @person.with_addresses[:addresses].first[:state].should == 'CA'
+    end
+
+    it "should return multiple addresses if present" do
+      Factory(:address, :person => @person, :state=>'MI')
+      @person.with_addresses[:addresses].map {|a| a[:state]}.sort.should == ['CA', 'MI']
+    end
+
+    it "does not have unwanted keys for person or addresses" do
+      [:id, :created_at, :updated_at].each do |unwanted|
+        @person.with_addresses.keys.should_not include unwanted
+        @person.with_addresses[:addresses].first.keys.should_not include(unwanted)
+      end
     end
   end
 

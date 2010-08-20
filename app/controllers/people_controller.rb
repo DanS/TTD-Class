@@ -7,6 +7,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @people }
+      format.json
     end
   end
 
