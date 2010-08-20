@@ -9,18 +9,17 @@ When /^I request: ([^\s]+)$/ do |url|
   visit url
 end
 
-#Then /^I get a (\d+) \(([\s\w]+)\) status result$/ do |code, description|
-#  doesn't appear to be possible to check status codes with capybara
-#  page.response_code.should == code.to_i
-#end
+Then /^I get a (\d+) \(([\s\w]+)\) status result$/ do |code, description|
+  response.response_code.should == code.to_i
+end
 
 Then /^the response header content\-type matches "([^"]*)"$/ do |content_type|
-  page.response_headers['Content-Type'].should match(%r{#{content_type}})
+  response.headers['Content-Type'].should match(%r{#{content_type}})
 end
 
 Then /^the response should match json:$/ do |expected_as_text|
   expected_json = JSON.parse expected_as_text
-  response_json = JSON.parse page.body
+  response_json = JSON.parse response.body
 #  p "---------- expected:"
 #  p expected_json
 #  p "---------- response:"
